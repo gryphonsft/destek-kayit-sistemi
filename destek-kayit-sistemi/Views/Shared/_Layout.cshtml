@@ -1,0 +1,113 @@
+﻿@{
+    var userRole = Context.Session.GetString("role");
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - itTicketSystem</title>
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/itTicketSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/tailwindcss/tailwind.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    @RenderSection("Styles", required: false)
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  text-lg h-16">
+            <div class="container-fluid">
+                <a class="navbar-brand ml-6" asp-area="" asp-controller="Home"
+                    asp-action="@(userRole == "Admin" ? "AdminView" : userRole == "Personel" ? "PersonelView" : "UserView")">
+                    Destek Kayıt Sistemi
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+                   
+                    <ul class="navbar-nav flex flex-grow-1 justify-center space-x-6">
+                        <li class="nav-item">
+                            <a class="nav-link text-black ml-8" asp-area="" asp-controller="Home"
+                                asp-action="@(userRole == "Admin" ? "AdminView" : userRole == "Personel" ? "PersonelView" : "UserView")">
+                                <i class="fa-solid fa-house"></i> Ana Sayfa
+                            </a>
+                        </li>
+                        @if (userRole == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Ticket"
+                                    asp-action="PersonelTicket"><i class="fa-solid fa-ticket"></i> Ticket Yönetimi</a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Inventory" asp-action="Index"><i
+                                        class="fa-solid fa-warehouse"></i> Envanter Yönetimi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Home"
+                                    asp-action="ReportView"><i class="fa-solid fa-chart-simple"></i> Raporlama&Analiz</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Home"
+                                    asp-action="SettingsView"><i class="fa-solid fa-gear"></i> Ayarlar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Home"
+                                    asp-action="Testalanı"><i class="fa-solid fa-gear"></i> Test</a>
+                            </li>
+                        }
+                        else if (userRole == "User")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="" asp-action="">Ticketlarım</a>
+                            </li>
+                        }
+                        else if (userRole == "Personel")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Ticket"
+                                    asp-action="PersonelTicket">Ticket işlemleri</a>
+                            </li>
+                        }
+                    </ul>
+                  
+                    <div class="ms-auto text-black">
+                        <span class="navbar-text">Hoş geldin, @ViewBag.Username</span>
+                        <br>
+                        <div class="text-end">
+                            <span class="navbar-text">Yetki: @ViewBag.Role</span>
+                        </div>
+                    </div>
+                    <form asp-controller="Auth" asp-action="Logout" method="post" class="d-flex ml-4">
+                        <button type="submit" class="btn btn-danger">Çıkış yap</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="main-content">
+
+        @RenderBody()
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/responsive.js" asp-append-version="true"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

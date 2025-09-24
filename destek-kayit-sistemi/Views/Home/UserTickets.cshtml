@@ -1,0 +1,73 @@
+﻿@using destek_kayit_sistemi.destek_kayit_sistemi.Domain.Entities
+@model Users
+
+<div style="display:flex; justify-content:center; flex-direction:column; align-items:center;">
+
+    <div class="text-white mt-10 mb-2 text-xl">
+        <h3>@Model.Username kullanıcısının oluşturduğu kayıtlar</h3>
+    </div>
+
+    <div class="d-flex justify-center ml-10 bg-white p-3 rounded-2xl shadow-xl"
+        style="flex-direction: column; align-items: center;">
+        @if (Model.CreatedTickets != null && Model.CreatedTickets.Any())
+        {
+            <table class="table table-bordered mb-3">
+                <thead>
+                    <tr>
+                        <th>Kime atanmış</th>
+                        <th>Id</th>
+                        <th>Başlık</th>
+                        <th>Açıklama</th>
+                        <th>Durum</th>
+                        <th>Öncelik</th>
+                        <th>Kategori</th>
+                        <th>Oluşturulma tarihi</th>
+                        <th>Kapanma tarihi</th>
+                        <th>Silmek</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var ticket in Model.CreatedTickets)
+                    {
+                        <tr>
+                            <td>@ticket.AssignedToUser?.Username</td>
+                            <td>@ticket.id</td>
+                            <td>@ticket.title</td>
+                            <td>@ticket.description</td>
+                            <td>@ticket.status</td>
+                            <td>@ticket.priority</td>
+                            <td>@ticket.category</td>
+                            <td>@ticket.created_at</td>
+                            <td>@ticket.closed_at</td>
+                            <td>
+                                <form method="post" asp-action="deleteTicket" asp-controller="Home" asp-route-id="@ticket.id">
+                                    <button class="btn btn-danger" type="submit">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="mb-2">
+
+                <div class="imgarea" style="display:flex; justify-content:center;">
+                    <img src="~/lib/image/nocontent.png" style="width: 200px; height:200px;">
+                </div>
+                <div class="footer">
+                    <h1 class="text-3xl">
+                        Kullanıcının hiçbir kaydı bulunmamaktadır!
+                    </h1>
+                </div>
+            </div>
+        }
+
+        <div style="text-align:center;">
+            <a asp-action="SettingsView" asp-controller="Home" class="btn btn-primary">Geri dön</a>
+        </div>
+
+    </div>
+</div>

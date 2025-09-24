@@ -1,0 +1,1038 @@
+/* Responsive Design for IT Ticket System */
+
+/* Main content wrapper */
+.main-content {
+    min-height: calc(100vh - 200px);
+}
+
+/* Base responsive breakpoints */
+@media (max-width: 1200px) {
+    .container-fluid {
+        margin-left: 1rem !important;
+        margin-right: 1rem !important;
+    }
+    
+    .info-cards {
+        flex-direction: column !important;
+        width: 100%;
+    }
+    
+    .ticket-form {
+        max-width: 100% !important;
+    }
+    
+    .ticket-table {
+        min-width: unset !important;
+        width: 100%;
+    }
+}
+
+/* Footer positioning fix for mobile */
+@media (max-width: 768px) {
+    .main-content {
+        min-height: calc(100vh - 150px);
+        padding-bottom: 4rem;
+    }
+    
+    .footer {
+        position: relative !important;
+        margin-top: 2rem !important;
+        padding: 1rem 0 !important;
+    }
+    
+    /* Ensure form containers have proper spacing */
+    .p-3.bg-white.rounded-2xl {
+        margin-bottom: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    /* Modal fixes for mobile */
+    .modal-dialog {
+        margin: 0.5rem !important;
+        max-width: calc(100% - 1rem) !important;
+    }
+    
+    .modal-content {
+        max-height: calc(100vh - 2rem) !important;
+        overflow-y: auto !important;
+    }
+    
+    /* Inventory modal table fixes */
+    .modal .table {
+        font-size: 0.75rem !important;
+    }
+    
+    .modal .table th,
+    .modal .table td {
+        padding: 0.25rem 0.1rem !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Make inventory modals full width on mobile */
+    .modal#cihazListelemek,
+    .modal#devredilenListelemek {
+        padding: 0 !important;
+    }
+    
+    .modal#cihazListelemek .modal-dialog,
+    .modal#devredilenListelemek .modal-dialog {
+        max-width: 100% !important;
+        margin: 0 !important;
+        height: 100vh !important;
+    }
+    
+    .modal#cihazListelemek .modal-content,
+    .modal#devredilenListelemek .modal-content {
+        height: 100vh !important;
+        border-radius: 0 !important;
+    }
+    
+    /* Adjust table container in inventory modals */
+    .modal .flex-1.overflow-auto {
+        max-height: calc(100vh - 120px) !important;
+    }
+    
+    /* Mobile modal specific styles */
+    .mobile-modal {
+        margin-top: 0 !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+    }
+    
+    /* Inventory table mobile optimization */
+    .mobile-modal .table {
+        font-size: 0.7rem !important;
+    }
+    
+    .mobile-modal .table th,
+    .mobile-modal .table td {
+        padding: 0.2rem 0.1rem !important;
+        font-size: 0.7rem !important;
+    }
+    
+    /* Make table columns more compact on mobile */
+    .mobile-modal .table th:nth-child(1),
+    .mobile-modal .table td:nth-child(1) {
+        width: 8% !important;
+    }
+    
+    .mobile-modal .table th:nth-child(2),
+    .mobile-modal .table td:nth-child(2) {
+        width: 20% !important;
+    }
+    
+    .mobile-modal .table th:nth-child(3),
+    .mobile-modal .table td:nth-child(3) {
+        width: 15% !important;
+    }
+    
+    .mobile-modal .table th:nth-child(4),
+    .mobile-modal .table td:nth-child(4) {
+        width: 15% !important;
+    }
+    
+    .mobile-modal .table th:nth-child(5),
+    .mobile-modal .table td:nth-child(5) {
+        width: 15% !important;
+    }
+    
+    .mobile-modal .table th:nth-child(6),
+    .mobile-modal .table td:nth-child(6) {
+        width: 15% !important;
+    }
+    
+    /* Additional mobile table optimizations */
+    .mobile-modal .table {
+        table-layout: fixed !important;
+    }
+    
+    .mobile-modal .table td {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    /* Ensure modal content is scrollable */
+    .mobile-modal .flex-1.overflow-auto {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Navigation adjustments */
+    .navbar {
+        height: auto !important;
+        min-height: 60px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+    
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    /* Main content adjustments */
+    .d-flex.flex-wrap {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .flex.flex-col.gap-4 {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        margin-top: 1rem !important;
+        flex: none !important;
+        min-width: auto !important;
+    }
+    
+    .bg-green-500, .bg-red-600, .bg-yellow-300 {
+        width: 150px !important;
+        height: 80px !important;
+        margin: 0.5rem !important;
+    }
+    
+    .p-3.bg-white.rounded-2xl {
+        flex: none !important;
+        max-width: 100% !important;
+        min-width: auto !important;
+        margin: 1rem 0 !important;
+    }
+    
+    .bg-white.bg-primary-subtle {
+        flex: none !important;
+        min-width: auto !important;
+        margin: 1rem 0 !important;
+    }
+    
+    .d-flex.flex-column.mr-2 {
+        flex: none !important;
+        min-width: auto !important;
+        width: 100% !important;
+        margin: 1rem 0 !important;
+    }
+    
+    /* Table responsive */
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .table {
+        font-size: 0.8rem !important;
+    }
+    
+    .table th, .table td {
+        padding: 0.5rem 0.25rem !important;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile-first adjustments */
+    body {
+        font-size: 14px;
+    }
+    
+    /* Container adjustments */
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    
+    /* Navigation mobile */
+    .navbar-toggler {
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    
+    /* Card adjustments */
+    .card {
+        margin: 0.5rem 0 !important;
+        padding: 0.75rem !important;
+    }
+    
+    .cardtitle h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Button adjustments */
+    .buttonn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+        margin: 0.25rem !important;
+    }
+    
+    /* Form adjustments */
+    .form {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem !important;
+    }
+    
+    .inputForm {
+        height: 45px !important;
+    }
+    
+    .button-submit {
+        height: 45px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Form spacing improvements for mobile */
+    .space-y-5 > div {
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Ensure select dropdowns are accessible */
+    select {
+        min-height: 44px !important;
+        font-size: 16px !important;
+    }
+    
+    /* Add extra padding to form containers */
+    .p-3.bg-white.rounded-2xl {
+        padding-bottom: 3rem !important;
+    }
+    
+    /* Grid adjustments */
+    .grid.grid-cols-1.md\\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    /* Inventory page adjustments */
+    .mx-auto.my-6.p-6.border.rounded-2xl.shadow-md.bg-white {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 1rem 0 !important;
+        padding: 1rem !important;
+    }
+    
+    /* Login page adjustments */
+    .auth-card {
+        max-width: 100% !important;
+        margin: 1rem !important;
+    }
+    
+    .auth-header {
+        padding: 1.5rem !important;
+    }
+    
+    .auth-body {
+        padding: 1.5rem !important;
+    }
+    
+    /* Flex adjustments */
+    .flex-row {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .cardbody {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .cardbody .buttonn {
+        width: 100% !important;
+        max-width: 200px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Extra small devices */
+    .navbar-brand {
+        font-size: 1rem !important;
+    }
+    
+    .bg-green-500, .bg-red-600, .bg-yellow-300 {
+        width: 100% !important;
+        height: 70px !important;
+        margin: 0.25rem 0 !important;
+    }
+    
+    .text-2xl {
+        font-size: 1.5rem !important;
+    }
+    
+    .text-3xl {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Table mobile optimization */
+    .table-responsive {
+        font-size: 0.7rem !important;
+    }
+    
+    .table th, .table td {
+        padding: 0.25rem 0.1rem !important;
+    }
+    
+    /* Button text */
+    .btn {
+        font-size: 0.8rem !important;
+        padding: 0.5rem 0.75rem !important;
+    }
+    
+    /* Form labels */
+    .block.text-gray-700.font-medium {
+        font-size: 0.9rem !important;
+    }
+    
+    /* Toast adjustments */
+    .toast-container {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1080 !important;
+    }
+    
+    .toast {
+        margin: 0.5rem !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar, .footer, .btn, .toast-container {
+        display: none !important;
+    }
+    
+    .table {
+        font-size: 10px !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .bg-green-500, .bg-red-600, .bg-yellow-300 {
+        border: 2px solid #000 !important;
+    }
+    
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode support */
+
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: no-preference) {
+    .btn:hover, .buttonn:hover {
+        transform: translateY(-1px);
+        transition: transform 0.2s ease;
+    }
+}
+
+/* Focus styles for better accessibility */
+.btn:focus, .buttonn:focus, .form-control:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Custom scrollbar for better mobile experience */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
+
+/* Mobile table scroll fix */
+@media (max-width: 768px) {
+    /* Fix table container scrolling */
+    .table-responsive {
+        max-height: 60vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        border: 1px solid #dee2e6 !important;
+        border-radius: 0.375rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    /* Ensure card layout is scrollable */
+    .table-responsive .table tbody {
+        display: block !important;
+        overflow-y: auto !important;
+        max-height: calc(60vh - 2rem) !important;
+    }
+    
+    /* Improve card spacing for better scrolling */
+    .table-responsive .table tr {
+        margin-bottom: 0.75rem !important;
+        border: 1px solid #dee2e6 !important;
+        border-radius: 0.375rem !important;
+        padding: 0.75rem !important;
+        background: #fff !important;
+    }
+    
+    /* Add visual feedback for scrollable area */
+    .table-responsive::before {
+        content: "Kaydırmak için yukarı/aşağı hareket ettirin";
+        display: block;
+        text-align: center;
+        padding: 0.5rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Ensure proper touch scrolling */
+    .table-responsive {
+        touch-action: pan-y !important;
+    }
+}
+
+/* Inventory modal mobile optimization */
+@media (max-width: 768px) {
+    /* Mobile modal full screen */
+    .mobile-modal {
+        margin-top: 0 !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    /* Modal header */
+    .mobile-modal .flex.justify-between.items-center {
+        flex-shrink: 0 !important;
+        padding: 1rem !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+    
+    /* Modal content area */
+    .mobile-modal .flex-1.overflow-auto {
+        flex: 1 !important;
+        overflow: auto !important;
+        padding: 0.5rem !important;
+    }
+    
+    /* Table optimization for mobile */
+    .mobile-modal .table {
+        font-size: 0.7rem !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+    
+    /* Table headers */
+    .mobile-modal .table th {
+        padding: 0.3rem 0.2rem !important;
+        font-size: 0.7rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    /* Table cells */
+    .mobile-modal .table td {
+        padding: 0.3rem 0.2rem !important;
+        font-size: 0.7rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    /* Column widths for inventory tables */
+    .mobile-modal .table th:nth-child(1),
+    .mobile-modal .table td:nth-child(1) {
+        width: 10% !important; /* ID */
+    }
+    
+    .mobile-modal .table th:nth-child(2),
+    .mobile-modal .table td:nth-child(2) {
+        width: 30% !important; /* Device Name */
+    }
+    
+    .mobile-modal .table th:nth-child(3),
+    .mobile-modal .table td:nth-child(3) {
+        width: 35% !important; /* Device Type */
+    }
+    
+    .mobile-modal .table th:nth-child(4),
+    .mobile-modal .table td:nth-child(4) {
+        width: 25% !important; /* Brand */
+    }
+    
+    /* Ensure table is scrollable */
+    .mobile-modal .flex-1.overflow-auto {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    /* Table container */
+    .mobile-modal .table-container {
+        min-width: 100% !important;
+        overflow-x: auto !important;
+    }
+    
+    /* Close button optimization */
+    .mobile-modal .close-button {
+        padding: 0.5rem !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Modern Mobile Navbar */
+@media (max-width: 768px) {
+    /* Mobile navbar container */
+    .navbar {
+        height: auto !important;
+        min-height: 70px !important;
+        padding: 0.5rem 1rem !important;
+        background: linear-gradient(135deg, #272727 0%, #1a1a1a 100%) !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+    }
+    
+    /* Brand/Logo area */
+    .navbar-brand {
+        font-size: 1.2rem !important;
+        font-weight: 700 !important;
+        color: #fff !important;
+        text-decoration: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+    }
+    
+    .navbar-brand::before {
+        content: "🎫";
+        font-size: 1.5rem;
+    }
+    
+    /* Mobile menu button */
+    .navbar-toggler {
+        border: 2px solid rgba(255,255,255,0.3) !important;
+        border-radius: 8px !important;
+        padding: 0.5rem !important;
+        background: rgba(255,255,255,0.1) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.25) !important;
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+    
+    /* Mobile menu container */
+    .navbar-collapse {
+        background: rgba(39, 39, 39, 0.95) !important;
+        backdrop-filter: blur(15px) !important;
+        border-radius: 12px !important;
+        margin-top: 1rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+    }
+    
+    /* Navigation links */
+    .navbar-nav {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .navbar-nav .nav-link {
+        color: #fff !important;
+        padding: 0.75rem 1rem !important;
+        margin: 0.25rem 0 !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        font-weight: 500 !important;
+        border: 1px solid transparent !important;
+    }
+    
+    .navbar-nav .nav-link:hover {
+        background: rgba(255,255,255,0.1) !important;
+        transform: translateX(5px) !important;
+        border-color: rgba(255,255,255,0.2) !important;
+    }
+    
+    .navbar-nav .nav-link i {
+        width: 20px !important;
+        text-align: center !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* Active link */
+    .navbar-nav .nav-link.active {
+        background: linear-gradient(135deg, #007bff, #0056b3) !important;
+        color: #fff !important;
+        box-shadow: 0 2px 8px rgba(0,123,255,0.3) !important;
+    }
+    
+    /* User info section */
+    .ms-auto {
+        margin-top: 1rem !important;
+        padding-top: 1rem !important;
+        border-top: 1px solid rgba(255,255,255,0.1) !important;
+    }
+    
+    .navbar-text {
+        color: #fff !important;
+        font-size: 0.9rem !important;
+        margin: 0.25rem 0 !important;
+        display: block !important;
+    }
+    
+    /* Logout button */
+    .btn-danger {
+        background: linear-gradient(135deg, #dc3545, #c82333) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 8px rgba(220,53,69,0.3) !important;
+        transition: all 0.3s ease !important;
+        width: 100% !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    .btn-danger:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(220,53,69,0.4) !important;
+    }
+    
+    /* Container adjustments */
+    .container-fluid {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 1rem !important;
+    }
+    
+    /* Animation for menu items */
+    .navbar-nav .nav-link {
+        animation: slideInLeft 0.3s ease forwards;
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    
+    .navbar-nav .nav-link:nth-child(1) { animation-delay: 0.1s; }
+    .navbar-nav .nav-link:nth-child(2) { animation-delay: 0.2s; }
+    .navbar-nav .nav-link:nth-child(3) { animation-delay: 0.3s; }
+    .navbar-nav .nav-link:nth-child(4) { animation-delay: 0.4s; }
+    .navbar-nav .nav-link:nth-child(5) { animation-delay: 0.5s; }
+    
+    @keyframes slideInLeft {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    /* Menu toggle animation */
+    .navbar-collapse.show {
+        animation: slideDown 0.3s ease forwards;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* User role badge */
+    .navbar-text:last-child {
+        background: linear-gradient(135deg, #28a745, #20c997) !important;
+        color: #fff !important;
+        padding: 0.25rem 0.75rem !important;
+        border-radius: 20px !important;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
+        display: inline-block !important;
+        margin-top: 0.5rem !important;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.5rem !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.1rem !important;
+    }
+    
+    .navbar-collapse {
+        margin-top: 0.5rem !important;
+        padding: 0.75rem !important;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.6rem 0.75rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .btn-danger {
+        padding: 0.6rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Mobile centering for admin dashboard */
+@media (max-width: 768px) {
+    /* Main container centering */
+    .container-fluid[style*="max-width: 1800px"] {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0.5rem !important;
+        margin: 0 !important;
+    }
+    
+    /* Flex container centering */
+    .d-flex.flex-wrap[style*="gap: 25px"] {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 1rem !important;
+        margin-top: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Info cards centering */
+    .flex.flex-col.gap-4[style*="margin-top: 90px"] {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+    }
+    
+ 
+    .p-3.bg-white.rounded-2xl.shadow-lg {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .bg-white.bg-primary-subtle.shadow.p-3.table-responsive {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+  
+    .d-flex.flex-column.mr-2[style*="flex: 0 0 200px"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+
+    .bg-white.bg-primary-subtle.shadow.p-3.table-responsive .row {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .bg-white.bg-primary-subtle.shadow.p-3.table-responsive .col-12 {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+  
+    .p-3.bg-white.rounded-2xl.shadow-lg form {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .p-3.bg-white.rounded-2xl.shadow-lg form > div {
+        width: 100% !important;
+        text-align: center !important;
+    }
+    
+    .p-3.bg-white.rounded-2xl.shadow-lg form input,
+    .p-3.bg-white.rounded-2xl.shadow-lg form select,
+    .p-3.bg-white.rounded-2xl.shadow-lg form button {
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+    }
+}
+
+
+@media (max-width: 768px) {
+ 
+    .mobile-modal {
+        margin-top: 0 !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+    }
+    
+
+    .mobile-modal h2 {
+        flex-shrink: 0 !important;
+        padding: 1rem !important;
+        margin: 0 !important;
+        border-bottom: 1px solid #dee2e6 !important;
+        background: #fff !important;
+    }
+    
+
+    .mobile-modal .flex-1.overflow-auto {
+        flex: 1 !important;
+        overflow: auto !important;
+        padding: 0.5rem !important;
+        height: calc(100vh - 80px) !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+
+    .mobile-modal .flex-1.overflow-auto table {
+        font-size: 0.65rem !important;
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    .mobile-modal .flex-1.overflow-auto thead th {
+        padding: 0.25rem 0.15rem !important;
+        font-size: 0.65rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        background: #f8f9fa !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10 !important;
+    }
+
+    .mobile-modal .flex-1.overflow-auto tbody td {
+        padding: 0.25rem 0.15rem !important;
+        font-size: 0.65rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        border-bottom: 1px solid #e9ecef !important;
+    }
+ 
+    .mobile-modal .flex-1.overflow-auto th:nth-child(1),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(1) {
+        width: 8% !important; 
+    }
+    
+    .mobile-modal .flex-1.overflow-auto th:nth-child(2),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(2) {
+        width: 20% !important; 
+    }
+    
+    .mobile-modal .flex-1.overflow-auto th:nth-child(3),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(3) {
+        width: 25% !important;
+    }
+    
+    .mobile-modal .flex-1.overflow-auto th:nth-child(4),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(4) {
+        width: 15% !important; 
+    }
+    
+    .mobile-modal .flex-1.overflow-auto th:nth-child(5),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(5) {
+        width: 15% !important;
+    }
+    
+    .mobile-modal .flex-1.overflow-auto th:nth-child(6),
+    .mobile-modal .flex-1.overflow-auto td:nth-child(6) {
+        width: 17% !important;
+    }
+    
+    .mobile-modal button[onclick*="close"] {
+        position: absolute !important;
+        top: 0.5rem !important;
+        right: 0.5rem !important;
+        z-index: 20 !important;
+        padding: 0.5rem !important;
+        font-size: 1.5rem !important;
+        background: rgba(255,255,255,0.9) !important;
+        border-radius: 50% !important;
+        width: 2rem !important;
+        height: 2rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .mobile-modal .flex-1.overflow-auto tbody {
+        display: table-row-group !important;
+    }
+
+    .mobile-modal .flex-1.overflow-auto tbody tr:hover {
+        background-color: #f8f9fa !important;
+    }
+}

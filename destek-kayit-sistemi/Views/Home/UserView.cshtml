@@ -1,0 +1,144 @@
+﻿@using destek_kayit_sistemi.destek_kayit_sistemi.Domain.Entities
+@model List<Tickets>
+@{
+    Layout = "_Layout";
+}
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Başarılı!',
+                text: '@TempData["Success"]',
+                confirmButtonText: 'Tamam',
+                timer: 3000,
+                timerProgressBar: true
+            });
+        </script>
+    }
+}
+
+<div class="container-fluid" style="max-width: 1800px; margin: 0 auto; padding: 1rem;">
+    <div class="d-flex flex-wrap"
+        style="gap: 25px; margin-top: 30px; align-items: flex-start; justify-content: flex-start;">
+
+        <!-- Sol: Form Kutusu -->
+        <div class="p-3 bg-white rounded-2xl shadow-lg ml-3"
+            style="flex: 1 1 320px; max-width: 400px; min-width: 300px; height:520px">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">🎫 Yeni Ticket Oluştur</h2>
+            <div style="transform: scale(0.90); transform-origin: top; width: 100%;">
+                <form method="post" asp-action="Create" asp-controller="Ticket" class="space-y-5">
+                    <div>
+                        <label class="block text-gray-700 font-medium ">Ticket Başlığı</label>
+                        <input type="text" name="Title" id="Title"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required />
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium">Açıklama</label>
+                        <input type="text" id="Description" name="Description"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required />
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium ">Öncelik</label>
+                        <select name="Priority"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                            <option value="">Seçiniz</option>
+                            <option value="Düşük">Düşük</option>
+                            <option value="Orta">Orta</option>
+                            <option value="Yüksek">Yüksek</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium">Kategori</label>
+                        <select id="Category" name="Category"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Donanım</option>
+                            <option>Yazılım</option>
+                            <option>İnternet</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        @if (ViewBag.AssignedUsers != null)
+                        {
+                            <label for="AssignedToUserId" class="block text-gray-700 font-medium">Atanacak Kullanıcı</label>
+                            <select id="AssignedToUserId" name="AssignedToUserId"
+                                class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                                <option value="">-- Seçiniz --</option>
+                                @foreach (var user in ViewBag.AssignedUsers)
+                                {
+                                    <option value="@user.Value">@user.Text</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p>Kullanıcı listesi yüklenemedi.</p>
+                        }
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition duration-200 font-semibold">
+                            Ticket Oluştur
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Sağ: Mavi Kutucuk -->
+        <<div class="bg-white rounded-xl shadow p-4 ml-20" style="width: 1000px; height: 519px;">
+    <h2 class="text-2xl text-center font-bold text-gray-800 mb-3">Ticket Tablonuz</h2>
+
+    <!-- Scrollable Table Container -->
+    <div style="max-height: 420px; overflow: auto;">
+        <table class="table table-striped table-bordered mb-0" style="font-size: 12px; min-width: 900px;">
+            <thead class="table-dark" style="position: sticky; top: 0; z-index: 2;">
+                <tr>
+                    <th>Id</th>
+                    <th>Başlık</th>
+                    <th>Açıklama</th>
+                    <th>Durum</th>
+                    <th>Öncelik</th>
+                    <th>Kategori</th>
+                    <th>Atanan</th>
+                    <th>Oluşturulma</th>
+                    <th>Kapanma</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var liste in Model)
+                {
+                    <tr>
+                        <td>@liste.id</td>
+                        <td>@liste.title</td>
+                        <td>@liste.description</td>
+                        <td>@liste.status</td>
+                        <td>@liste.priority</td>
+                        <td>@liste.category</td>
+                        <td>@liste.AssignedToUser?.Username</td>
+                        <td>@liste.created_at</td>
+                        <td>@liste.closed_at</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+        </div>
+
+    </div>
+</div>

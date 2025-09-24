@@ -1,0 +1,224 @@
+@using destek_kayit_sistemi.destek_kayit_sistemi.Application.ViewModels
+@model SettingsPageViewModel
+<div style="display: flex; gap: 15px; align-items: flex-start; margin-top:30px;">
+
+    <!-- KULLANICI KAYIT FORMU -->
+
+    <div class="d-flex justify-center ml-10 bg-white p-3 rounded-2xl shadow-xl" style="max-width: 300px;">
+        <form method="post" asp-action="userCreate" asp-controller="Home" class="space-y-5">
+
+
+            <div>
+                <label class="block font-bold text-2xl text-dark">Kullanıcı Kayıt</label>
+            </div>
+
+
+            <div>
+                <label class="block font-medium text-dark mt-2">Kullanıcı adı</label>
+                <input asp-for="Users.Username" type="text"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required />
+            </div>
+
+
+            <div>
+                <label class="block font-medium text-dark mt-2">Parola</label>
+                <input asp-for="Users.Password" type="password"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required />
+            </div>
+
+
+            <div>
+                <label class="block font-medium text-dark mt-2">Yetki</label>
+                <select asp-for="Users.RoleId"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Rol seçiniz</option>
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        <option value="@role.RoleId">@role.RoleName</option>
+                    }
+                </select>
+            </div>
+
+
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white text-xl py-3 mb-4 rounded-xl hover:bg-blue-700 transition duration-200 font-semibold">
+                    Oluştur
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+
+
+    <!-- KULLANICILAR LİSTESİ -->
+    <div class="d-flex justify-center ml-10 bg-white p-3 rounded-2xl shadow-xl">
+        <div class="table-container" style="flex: 1;">
+            <table border="1" cellpadding="8" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>Kullanıcı adı</th>
+                        <th>Yetkisi</th>
+                        <th>Parolası</th>
+                        <th class="">Detay</th>
+                        <th>Ticketları görüntüle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model.UsersList != null)
+                    {
+                        @foreach (var list in Model.UsersList)
+                        {
+                            <tr class="text-center">
+                                <td class="bg-gray-300 rounded">@list.Id</td>
+                                <td>@list.Username</td>
+                                <td class="bg-gray-300 rounded">@list.Roles?.RoleName</td>
+                                <td>@list.Password</td>
+                                <td data-label="Detay">
+                                    <button class="SettingsModalBtn text-white rounded-lg bg-blue-600 p-2 shadow-2xl"
+                                            data-id="@list.Id" data-username="@list.Username" data-password="@list.Password"
+                                            data-roleid="@list.RoleId"
+                                            data-deviceid="@list.User_Devices?.FirstOrDefault()?.DeviceId" data-bs-toggle="modal"
+                                            data-bs-target="#userModal">
+                                        Detaylar için tıkla
+                                    </button>
+                                </td>
+                                <td>
+                                    <a asp-action="UserTickets" asp-controller="Home" asp-route-id="@list.Id"
+                                       class="btn btn-info rounded-lg">
+                                        Ticketları Görüntüle
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center p-4 text-gray-500">Kullanıcı bulunamadı.</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="d-flex justify-center ml-10 bg-white p-3 rounded-2xl shadow-xl">
+        <form method="post" asp-action="" asp-controller="" class="space-y-5">
+
+
+            <div>
+                <label class="block font-bold text-2xl text-dark">Yetki ekleme</label>
+            </div>
+
+
+            <div>
+                <label class="block font-medium text-dark mt-2">Yetki adı</label>
+                <input asp-for="Users.Username" type="text"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required />
+            </div>
+
+
+
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white text-xl py-3 mb-4 rounded-xl hover:bg-blue-700 transition duration-800 font-semibold">
+                    Oluştur
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<!-- MODAL YAPISI -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+        <div class="modal-content rounded-2xl">
+            <form asp-action="updateUser" asp-controller="Home" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detaylı kullanıcı bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+
+                        <input type="hidden" asp-for="Users.Id" id="userid" name="users.Id" />
+                    </div>
+
+                    <div class="mb-2">
+                        <label>Kullanıcı adı değiştir</label>
+                        <input class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" asp-for="Users.Username" id="Username"
+                            name="users.Username" />
+                    </div>
+                    <div class="mb-2">
+                        <label>Şifreyi değiştir</label>
+                        <input class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" asp-for="Users.Password" id="Password"
+                            name="users.Password" />
+                    </div>
+                    <div class="mt-6">
+                        <label>Yetki değiştir</label>
+                        <select class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500" asp-for="Users.RoleId" id="roles" name="users.RoleId">
+                            <option value="">Rol seçiniz</option>
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <option value="@role.RoleId">@role.RoleName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label>Sahip oldugu cihaz</label>
+                        <select class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500" id="devices" name="selectedDeviceIds[0]">
+                            <option value="">Cihaz seçiniz</option>
+                            
+                            @if(Model.Devices != null)
+                            {
+                                @foreach (var devices in Model.Devices)
+                                {
+                                    <option value="@devices.DeviceId">
+                                        @devices.DeviceName - @devices.Brand - @devices.Model
+                                    </option>
+                                }
+                            }
+                            
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Durumu Güncelle</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.SettingsModalBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('userid').value = btn.dataset.id;
+                document.getElementById('Username').value = btn.dataset.username || '';
+                document.getElementById('Password').value = btn.dataset.password || '';
+                document.getElementById('roles').value = btn.dataset.role || '';
+                document.getElementById('devices').value = btn.dataset.devicename || '';
+                document.getElementById('ticketDescription').value = btn.dataset.createdtickets || '';
+                document.getElementById('ticketPriority').value = btn.dataset.udevice || '';
+            });
+        });
+    });
+</script>

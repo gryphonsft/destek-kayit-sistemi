@@ -1,0 +1,378 @@
+@using destek_kayit_sistemi.destek_kayit_sistemi.Application.ViewModels
+@model DevicePageViewModel
+<div class="flex items-center justify-center">
+  <div class="mx-auto my-6 p-6 border rounded-2xl shadow-md bg-white" style="width: 100%; max-width: 900px;">
+
+
+    <div class="bg-blue-100 text-blue-900 p-4 rounded-lg mb-6">
+      <p class="font-medium">Envanter Yönetim Sistemine Hoş Geldiniz</p>
+    </div>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+
+      <div class="bg-white border rounded-xl shadow-sm p-6 relative overflow-hidden">
+        <img src="~/lib/image/cihazekle.png" class="absolute top-1/2 right-4 transform -translate-y-1/2  text-gray-800 opacity-100">
+
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold mb-2">Cihaz Ekle</h3>
+          <p class="text-gray-600 mb-4">Yeni bir cihaz kaydı oluşturun.</p>
+
+          <button class="nline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+            onclick="cihazEkle()">
+            İşlem Yap
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white border rounded-xl shadow-sm p-6 relative overflow-hidden">
+        <img src="~/lib/image/cihazdevret.png" class="absolute top-1/2 right-4 transform -translate-y-1/2  text-gray-800 opacity-100">
+
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold mb-2">Cihazı Devret</h3>
+          <p class="text-gray-600 mb-4">Mevcut cihazı başka bir<br> kullanıcıya devredin.</p>
+          <button class="nline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition"
+            onclick="cihazDevret()">
+            Listele
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white border rounded-xl shadow-sm p-6 relative overflow-hidden">
+        <img src="~/lib/image/cihazlar.png" class="absolute top-1/2 right-4 transform -translate-y-1/2  text-gray-800 opacity-100">
+
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold mb-2">Cihazlar</h3>
+          <p class="text-gray-600 mb-4">Veritabanındaki cihazları <br> görüntüleyin.</p>
+          <button class="nline-block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+            onclick="cihazListelemek()">
+            Listele
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-white border rounded-xl shadow-sm p-6 relative overflow-hidden">
+        <img src="~/lib/image/devredilmis.png" class="absolute top-1/2 right-4 transform -translate-y-1/2  text-gray-800 opacity-100">
+
+        <div class="relative z-10">
+          <h3 class="text-lg font-semibold mb-2">Devredilmiş cihazlar</h3>
+          <p class="text-gray-600 mb-4">Devredilmiş cihazları <br> görüntüleyin.</p>
+          <button class="nline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition"
+            onclick="devretListelemek()">
+            Listele
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <details class="bg-gray-50 border rounded-xl p-4">
+      <summary class="font-medium cursor-pointer mb-2">Envanter Hakkında</summary>
+      <p class="text-gray-700 mt-2">
+        Envanter sistemi ile cihazları takip edebilir, durumlarını izleyebilir ve yönetim sürecini
+        dijitalleştirebilirsiniz.
+      </p>
+    </details>
+
+  </div>
+</div>
+
+
+
+<div id="cihazEklemek" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
+
+
+    <button onclick="closeCihazEkle()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+      &times;
+    </button>
+
+
+    <h2 class="text-xl font-semibold mb-4">Cihaz Bilgilerini Giriniz</h2>
+
+
+    <form id="modalForm" asp-action="deviceCreate" asp-controller="Inventory" method="post">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Cihazın adı</label>
+        <input type="text" id="DeviceName" name="DeviceName" required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Cihazın türü</label>
+        <input type="text" id="DeviceType" name="DeviceType" required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Markası</label>
+        <input type="text" id="Brand" name="Brand" required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Modeli</label>
+        <input type="text" id="Model" name="Model" required
+          class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+      </div>
+
+
+
+      <div class="flex justify-end space-x-2">
+        <button type="button" onclick="closeCihazEkle()"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">İptal</button>
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Ekle</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div id="cihazListelemek" class="fixed inset-0 z-50 hidden items-start justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-2xl w-full max-w-3xl shadow-xl relative flex flex-col mobile-modal" style="margin-top: 120px;">
+
+    <button onclick="closeCihazListelemek()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+      &times;
+    </button>
+
+    <h2 class="text-xl font-semibold mb-4 mt-4 text-center">Cihazlar</h2>
+
+
+        <div class="flex-1 overflow-auto p-4">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                <thead class="bg-gray-100 sticky top-0">
+                    <tr>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">ID</th>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Device Name</th>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Device Type</th>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Brand</th>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Model</th>
+                        <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Created At</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    @if (Model.Devices != null && Model.Devices.Any())
+                    {
+                        @foreach (var device in Model.Devices)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4 border-b">@device.DeviceId</td>
+                                <td class="py-2 px-4 border-b">@device.DeviceName</td>
+                                <td class="py-2 px-4 border-b">@device.DeviceType</td>
+                                <td class="py-2 px-4 border-b">@device.Brand</td>
+                                <td class="py-2 px-4 border-b">@device.Model</td>
+                                <td class="py-2 px-4 border-b">@device.CreatedAt</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="py-2 px-4 border-b text-center" colspan="6">Cihaz bulunamadı.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+  </div>
+</div>
+
+
+<div id="cihazdevretmek" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
+
+
+    <button onclick="closeCihazDevret()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+      &times;
+    </button>
+
+
+    <h2 class="text-xl font-semibold mb-4">Cihaz devretmek için seçim yapınız</h2>
+
+
+    <form id="modalForm" asp-action="deviceTransfer" asp-controller="Inventory" method="post">
+
+            @if (Model.Devices != null && Model.Devices.Any())
+            {
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedDeviceid">Hangi cihaz devredilsin?</label>
+                    <select asp-for="SelectedDeviceid"
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                        <option value="">-- Cihaz Seç --</option>
+                        @foreach (var device in Model.Devices)
+                        {
+                            <option value="@device.DeviceId">
+                                @($"{device.DeviceName} | {device.Brand} | {device.Model}")
+                            </option>
+                        }
+                    </select>
+                </div>
+            }
+            else
+            {
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-950 mb-1">Devredilecek cihaz bulunamadı</label>
+                </div>
+            }
+
+            @if (Model.Users != null && Model.Users.Any())
+            {
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedUserid">Kime devredilsin?</label>
+                    <select asp-for="SelectedUserid"
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                        <option value="">-- Kullanıcı Seç --</option>
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.Id">
+                                @user.Username
+                            </option>
+                        }
+                    </select>
+                </div>
+            }
+            else
+            {
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-950 mb-1">Devredilecek kullanıcı bulunamadı</label>
+                </div>
+            }
+
+
+      <div class="flex justify-end space-x-2">
+        <button type="button" onclick="closeCihazDevret()"
+          class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">İptal</button>
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Devret</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="devredilenListelemek" class="fixed inset-0 z-50 hidden items-start justify-center bg-black bg-opacity-50">
+  <div class="bg-white rounded-2xl w-full max-w-3xl shadow-xl relative flex flex-col mobile-modal" style="margin-top: 120px;">
+
+    <button onclick="closeDevretListelemek()" class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+      &times;
+    </button>
+
+    <h2 class="text-xl font-semibold mb-4 mt-4 text-center">Atanmış cihazlar</h2>
+
+
+        @if (Model.UserDevices != null && Model.UserDevices.Any())
+        {
+            <div class="flex-1 overflow-auto p-4">
+                <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                    <thead class="bg-gray-100 sticky top-0">
+                        <tr>
+                            <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Cihazın adı</th>
+                            <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Markası</th>
+                            <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Modeli</th>
+                            <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Kime atanmış</th>
+                            <th class="py-2 px-4 text-left text-sm font-semibold text-gray-700 border-b">Atandığı tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        @foreach (var ud in Model.UserDevices)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-2 px-4">@ud.Devices?.DeviceName</td>
+                                <td class="py-2 px-4">@ud.Devices?.Brand</td>
+                                <td class="py-2 px-4">@ud.Devices?.Model</td>
+                                <td class="py-2 px-4">@ud.Users?.Username</td>
+                                <td class="py-2 px-4">@ud.AssignedAt.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="flex-1 overflow-auto p-4">
+                <p class="text-center text-gray-500">Kayıt bulunamadı.</p>
+            </div>
+        }
+
+  </div>
+</div>
+
+
+
+<script>
+
+  // cihaz ekle modali tetikleme 
+  function cihazEkle() {
+    document.getElementById('cihazEklemek').classList.remove('hidden');
+    document.getElementById('cihazEklemek').classList.add('flex');
+  }
+  // cihaz ekle kapatma modali tetikleme 
+  function closeCihazEkle() {
+    document.getElementById('cihazEklemek').classList.remove('flex');
+    document.getElementById('cihazEklemek').classList.add('hidden');
+  }
+  // cihaz listeleme modali tetikleme 
+  function cihazListelemek() {
+    const modal = document.getElementById('cihazListelemek');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    
+    if (window.innerWidth <= 768) {
+      modal.style.padding = '0';
+      const modalContent = modal.querySelector('.bg-white');
+      modalContent.style.marginTop = '0';
+      modalContent.style.height = '100vh';
+      modalContent.style.borderRadius = '0';
+    }
+  }
+  // cihaz listeleme kapatma modali tetikleme 
+  function closeCihazListelemek() {
+    const modal = document.getElementById('cihazListelemek');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+    modal.style.padding = '';
+    const modalContent = modal.querySelector('.bg-white');
+    modalContent.style.marginTop = '';
+    modalContent.style.height = '';
+    modalContent.style.borderRadius = '';
+  }
+
+  function cihazDevret() {
+    document.getElementById('cihazdevretmek').classList.remove('hidden');
+    document.getElementById('cihazdevretmek').classList.add('flex');
+  }
+  function closeCihazDevret() {
+    document.getElementById('cihazdevretmek').classList.remove('flex');
+    document.getElementById('cihazdevretmek').classList.add('hidden');
+  }
+
+  function devretListelemek() {
+    const modal = document.getElementById('devredilenListelemek');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    if (window.innerWidth <= 768) {
+      modal.style.padding = '0';
+      const modalContent = modal.querySelector('.bg-white');
+      modalContent.style.marginTop = '0';
+      modalContent.style.height = '100vh';
+      modalContent.style.borderRadius = '0';
+    }
+  }
+  function closeDevretListelemek() {
+    const modal = document.getElementById('devredilenListelemek');
+    modal.classList.remove('flex');
+    modal.classList.add('hidden');
+    modal.style.padding = '';
+    const modalContent = modal.querySelector('.bg-white');
+    modalContent.style.marginTop = '';
+    modalContent.style.height = '';
+    modalContent.style.borderRadius = '';
+  }
+</script>

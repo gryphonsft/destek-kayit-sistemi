@@ -1,0 +1,209 @@
+@using destek_kayit_sistemi.destek_kayit_sistemi.Domain.Entities
+@model List<Tickets>
+@section Styles {
+    <link rel="stylesheet" href="~/css/PersonelTicket.css" />
+}
+@section Scripts {
+    <script src="~/js/toast.js"></script>
+}
+
+
+<div class="toast-container position-fixed end-0 bottom-0 p-3" style="z-index: 1080;">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="fa-solid fa-question me-3"></i>
+            <strong class="me-auto">BİLGİLENDİRME</strong>
+            <small>1 dakika önce</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Bu sayfada Ticketları yönetebilirsiniz.
+        </div>
+    </div>
+</div>
+
+<div class="container" style="max-width:1000px; margin:auto; padding-top: 60px;">
+
+    <div class="flex-row" style="display: flex; justify-content:space-between; width: 100%; gap:20px;">
+            <div class="card"
+                style="background-color: white; min-height: 100px; border-radius:15px; width: 90%; max-width: 100%; margin: 10px 0; padding: 10px;">
+
+
+                <div class="cardtitle" style="font-weight: bold;">
+                    <h1 style="color:black">Genel Kategoriler</h1>
+                </div>
+                <div class="cardbody my-2" style="display: flex; justify-content: space-around;">
+
+                <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="category" value="Donanım" />
+                    <button type="submit" class="buttonn">Donanım</button>
+                </form>
+                
+                <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="category" value="Yazılım" />
+                    <button type="submit" class="buttonn">Yazılım</button>
+                </form>
+                
+                <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="category" value="İnternet" />
+                    <button type="submit" class="buttonn">İnternet</button>
+                </form>
+                </div>
+
+            </div>
+
+            <div class="card"
+                style="background-color: white; min-height: 100px; border-radius:15px; width: 90%; max-width: 100%; margin: 10px 0; padding: 10px;">
+
+
+                <div class="cardtitle" style="font-weight: bold;">
+                    <h1 style="color:black">Durum</h1>
+                </div>
+                <div class="cardbody my-2" style="display: flex; justify-content: space-around;">
+                    <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="status" value="Açık">   
+                    <button type="submit" class="buttonn">Açık</button>
+
+                    </form>
+
+                    <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="status" value="Kapalı"> 
+                    <button type="submit" class="buttonn">Kapalı</button>
+
+                    </form>
+
+                    <form method="get" asp-controller="Ticket" asp-action="PersonelTicket">
+                    <input type="hidden" name="status" value="Beklemede">    
+                    <button type="submit" class="buttonn">Beklemede</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        </div>
+<div class="bg-white bg-primary-subtle shadow p-2 table-responsive" style="border-radius: 15px;">
+        <div class="row">
+            <div class="col-12">
+
+                <div style="max-height: 400px; overflow-y: auto; border-radius: 10px;">
+                    <table class="table table-striped mb-0">
+                        <thead class="table-dark" style="position: sticky; top: 0; z-index: 1;">
+                            <tr>
+                                <th>Id</th>
+                                <th>Kullanıcı</th>
+                                <th>Başlık</th>
+                                <th>Açıklama</th>
+                                <th>Durum</th>
+                                <th>Öncelik</th>
+                                <th>Kategori</th>
+                                <th>Atanan</th>
+                                <th>Oluşturulma</th>
+                                <th>Kapanma</th>
+                                <th>İşlem yap</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @foreach (var liste in Model)
+                    {
+                        <tr>
+                            <td data-label="ID">@liste.id</td>
+                            <td data-label="Kullanıcı"><i class="fa-solid fa-user"></i> @liste.Users?.Username</td>
+                            <td data-label="Başlık">@liste.title</td>
+                            <td data-label="Açıklama">@liste.description</td>
+                            <td data-label="Durum">@liste.status</td>
+                            <td data-label="Öncelik">@liste.priority</td>
+                            <td data-label="Kategori">@liste.category</td>
+                            <td data-label="Atanan">@liste.AssignedToUser?.Username</td>
+                            <td data-label="Oluşturulma">@liste.created_at</td>
+                            <td data-label="Kapanma">@liste.closed_at</td>
+                            <td data-label="İşlem">
+                                <button class="btn btn-sm btn-primary openModalBtn" data-id="@liste.id" data-userid="@liste.user_id"
+                                    data-username="@liste.Users?.Username"
+                                    data-title="@liste.title" data-status="@liste.status" data-priority="@liste.priority"
+                                    data-category="@liste.category" data-description="@liste.description"
+                                    data-bs-toggle="modal" data-bs-target="#ticketModal">
+                                    İşlem Yap
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+        <div class="modal-content rounded-2xl">
+            <form method="post" action="/Ticket/UpdateTicket">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ticket Detayları ve Durum Güncelleme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="ticketId" name="id" />
+
+                    <input type="hidden" id="ticketUserId" name="user_id" />
+                    <div class="mb-2">
+                        <label>Ticket Sahibi</label>
+                        <input type="text" class="form-control" id="ticketUsername" readonly />
+                    </div>
+                    <div class="mb-2">
+                        <label>Başlık</label>
+                        <input type="text" class="form-control" id="ticketTitle" name="title" readonly />
+                    </div>
+                    <div class="mb-2">
+                        <label>Açıklama</label>
+                        <textarea class="form-control" id="ticketDescription" rows="3" name="description" readonly></textarea>
+                    </div>
+                    <div class="mb-2">
+                        <label>Öncelik</label>
+                        <input type="text" class="form-control" id="ticketPriority" name="priority" readonly />
+                    </div>
+                    <div class="mb-2">
+                        <label>Kategori</label>
+                        <input type="text" class="form-control" id="ticketCategory" name="category" readonly />
+                    </div>
+                    <div class="mt-6">
+                        <label>Durum</label>
+                        <select class="form-select" id="ticketStatus" name="status" required>
+                            <option value="">Seçiniz</option>
+                            <option value="Açık">Açık</option>                            
+                            <option value="Kapalı">Kapalı</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Durumu Güncelle</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.openModalBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('ticketId').value = btn.dataset.id;
+                document.getElementById('ticketUserId').value = btn.dataset.userid ||'';
+                document.getElementById('ticketUsername').value = btn.dataset.username ||'';
+                document.getElementById('ticketTitle').value = btn.dataset.title || '';
+                document.getElementById('ticketDescription').value = btn.dataset.description || '';
+                document.getElementById('ticketPriority').value = btn.dataset.priority || '';
+                document.getElementById('ticketCategory').value = btn.dataset.category || '';
+                document.getElementById('ticketStatus').value = btn.dataset.status || '';
+            });
+        });
+    });
+</script>

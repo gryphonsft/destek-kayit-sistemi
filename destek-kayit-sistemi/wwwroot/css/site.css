@@ -1,0 +1,81 @@
+body{
+    background-color: #242323;
+}
+.navbar{
+    background-color: #ffffff;   
+}
+
+@media (max-width: 1600px) {
+    .info-cards {
+        flex-direction: column !important;
+        width: 100%;
+    }
+
+    .ticket-form {
+        max-width: 100% !important;
+    }
+
+    .ticket-table {
+        min-width: unset !important;
+        width: 100%;
+    }
+}
+
+
+.mobile-hidden {
+    display: block;
+}
+
+.mobile-visible {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-visible {
+        display: block;
+    }
+
+
+    .table-responsive {
+        border: 0;
+    }
+
+    .table-responsive .table {
+        border: 0;
+    }
+
+    .table-responsive .table thead {
+        display: none;
+    }
+
+    .table-responsive .table tbody,
+    .table-responsive .table tr,
+    .table-responsive .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-responsive .table tr {
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        padding: 0.5rem;
+    }
+
+    .table-responsive .table td {
+        border: none;
+        padding: 0.25rem 0;
+        text-align: left;
+    }
+
+    .table-responsive .table td:before {
+        content: attr(data-label) ": ";
+        font-weight: bold;
+        display: inline-block;
+        width: 40%;
+    }
+}
