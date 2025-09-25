@@ -70,7 +70,11 @@ namespace destek_kayit_sistemi.Controllers;
             ViewBag.Role = rol;
             ViewBag.Username = username;
 
-            List<Tickets> tickets;
+            var tickets = _context.Tickets
+            .Include(t => t.AssignedToUser)
+            .OrderByDescending(t => t.created_at)
+            .ToList();
+        
             if (!string.IsNullOrEmpty(category))
             {
 

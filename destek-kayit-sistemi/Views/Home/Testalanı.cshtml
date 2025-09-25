@@ -1,8 +1,11 @@
 @using destek_kayit_sistemi.destek_kayit_sistemi.Application.ViewModels
-@model SettingsPageViewModel
+@model List<Tickets>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Home.css" />
+}
 <div class="flex h-screen border-t-2" style="height: calc(100vh - 64px);">
     <div class="w-1/6 bg-gray-100 border-r-2 border-gray-300" style="background-color:#f3f7f9;">
-        <div class="flex justify-between items-center p-4 border-b-2 mb-5" style="background-color:#f3f7f9;">
+        <div class="flex justify-between items-center p-4 border-b-2 mb-2" style="background-color:#f3f7f9;">
            <span class="text-lg">Tickets</span>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
                <i class="fa-solid fa-square-plus"></i> Destek oluştur
@@ -10,36 +13,54 @@
 
         </div>
         <div class="flex justify-between items-center p-4">
-            <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Bütün kayıtlar</a>
-            <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
-        </div>
-        
-        <div class="flex justify-between items-center p-4">
-                <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Bekleyen kayıtlar</a>
+            <a asp-controller="Home" asp-action="Testalanı" 
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Bütün kayıtlar
+            </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4">
-                <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Açık kayıtlar</a>
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Beklemede"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Bekleyen kayıtlar
+            </a>
+            <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
+        </div>
+        <div class="flex justify-between items-center p-4">
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Açık"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Açık kayıtlar
+            </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4 border-b-2">
-                <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Kapalı kayıtlar</a>
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Kapalı"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Kapalı kayıtlar
+            </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
 
+
         <div class="flex justify-between items-center p-4 ">
-            <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Donanım</a>
-            
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-category="Donanım"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Donanım
+            </a>
         </div>
 
         <div class="flex justify-between items-center p-4 ">
-            <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Yazılım</a>
-            
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-category="Yazılım"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                Yazılım
+            </a>
         </div>
 
         <div class="flex justify-between items-center p-4 ">
-            <a href="#" class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">Ağ / Network</a>
-           
+            <a asp-controller="Home" asp-action="Testalanı" asp-route-category="İnternet"
+               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+                İnternet
+            </a>
         </div>
         
     </div>
@@ -50,24 +71,33 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kullanıcı</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ad</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Soyad</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Başlık</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Açıklama</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durum</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Öncelik</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Atanan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Oluşturulma</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kapanma</th>
+
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+                @foreach (var liste in Model)
+                { 
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap"><img src="~/lib/image/user.png" class="w-10 h-10"/></td>
-                    <td class="px-6 py-4 whitespace-nowrap">Ahmet</td>
-                    <td class="px-6 py-4 whitespace-nowrap">Yılmaz</td>
-                    <td class="px-6 py-4 whitespace-nowrap">ahmet@example.com</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.title</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.description</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.status</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.priority</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.category</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.AssignedToUser?.Username</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.created_at</td>
+                    <td class="px-6 py-4 whitespace-nowrap">@liste.closed_at</td>
+                       
                 </tr>
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap"><img src="~/lib/image/user.png" class="w-10 h-10" /></td>
-                    <td class="px-6 py-4 whitespace-nowrap">Ayşe</td>
-                    <td class="px-6 py-4 whitespace-nowrap">Demir</td>
-                    <td class="px-6 py-4 whitespace-nowrap">ayse@example.com</td>
-                </tr>
+                }
             </tbody>
         </table>
     </div>
