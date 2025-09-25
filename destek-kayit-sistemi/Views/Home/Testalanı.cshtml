@@ -14,28 +14,28 @@
         </div>
         <div class="flex justify-between items-center p-4">
             <a asp-controller="Home" asp-action="Testalanı" 
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Bütün kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Beklemede"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Bekleyen kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Açık"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Açık kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4 border-b-2">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Kapalı"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Kapalı kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
