@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="~/css/site.css">
     <link rel="stylesheet" href="~/css/responsive.css">
+    
+    
+
     @RenderSection("Styles", required: false)
 
 </head>
@@ -102,9 +105,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/sweetalert/sweetalert.min.js"></script>
-
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/responsive.js" asp-append-version="true"></script>
+    
+
 
 
     @await RenderSectionAsync("Scripts", required: false)

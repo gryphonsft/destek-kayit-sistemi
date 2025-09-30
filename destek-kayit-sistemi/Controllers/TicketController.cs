@@ -58,7 +58,7 @@ namespace destek_kayit_sistemi.Controllers;
             }
         }
 
-
+        [Route("ticketyonetimi")]
         [Authorize(Roles = "Admin,Personel")]
         public IActionResult PersonelTicket(string category, string status)
         {

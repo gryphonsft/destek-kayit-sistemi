@@ -18,7 +18,8 @@ public class HomeController : Controller
         _context = context;
     }
 
-
+    [Route("anasayfa-admin")]
+    [HttpGet]
     [Authorize(Roles = "Admin")]
     public IActionResult AdminView()
     {
@@ -50,7 +51,8 @@ public class HomeController : Controller
     }
 
 
-
+    [Route("anasayfa-personel")]
+    [HttpGet]
     [Authorize(Roles = "Personel,Admin")]
     public IActionResult PersonelView()
     {
@@ -117,6 +119,7 @@ public class HomeController : Controller
 
         return View("UserView", tickets);
     }
+    [Route("raporlama")]
     [HttpGet]
     public IActionResult ReportView()
     {
@@ -132,7 +135,7 @@ public class HomeController : Controller
         return View();
     }
 
-
+    [Route("ayarlar")]
     [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult SettingsView()
@@ -166,16 +169,30 @@ public class HomeController : Controller
 
         return View(model);
     }
+    [Route("testalanı")]
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult Testalanı(string category, string status)
     {
+        // Personel yetkisine sahip kullanıcıların, view'a gönderilmesi.
+        var assignedUsers = _context.Users
+          .Where(u => u.RoleId == 2)
+          .Select(u => new SelectListItem
+          {
+              Value = u.Id.ToString(),
+              Text = u.Username
+          })
+           .ToList();
+
         ViewBag.Tickets = _context.Tickets.Count();
         var tickets = _context.Tickets
         .Include(t => t.AssignedToUser)
         .OrderByDescending(t => t.created_at)
         .ToList();
 
-        
+        var role = HttpContext.Session.GetString("role");
+        var username = HttpContext.Session.GetString("username");
+
         if (!string.IsNullOrEmpty(category))
         {
 
@@ -209,6 +226,9 @@ public class HomeController : Controller
 
         }
 
+        ViewBag.AssignedUsers = assignedUsers; // Personel atama için viewbag
+        ViewBag.Role = role;
+        ViewBag.Username = username;
         return View(tickets);
     }
 
