@@ -1,41 +1,45 @@
 @using destek_kayit_sistemi.destek_kayit_sistemi.Application.ViewModels
 @model List<Tickets>
 @section Styles {
-    <link rel="stylesheet" href="~/css/Home.css" />
+    <link rel="stylesheet" href="~/css/Dashboard.css" />
+}
+@section Scripts {
+    <script src="~/js/Dashboard.js"></script>
 }
 <div class="flex h-screen border-t-2" style="height: calc(100vh - 64px);">
     <div class="w-1/6 bg-gray-100 border-r-2 border-gray-300" style="background-color:#f3f7f9;">
         <div class="flex justify-between items-center p-4 border-b-2 mb-2" style="background-color:#f3f7f9;">
-           <span class="text-lg">Tickets</span>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
-               <i class="fa-solid fa-square-plus"></i> Destek oluştur
+
+            <span class="text-lg">Tickets</span>
+            <button id="open-crud-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded">
+                <i class="fa-solid fa-square-plus"></i> Destek oluştur
             </button>
 
         </div>
         <div class="flex justify-between items-center p-4">
-            <a asp-controller="Home" asp-action="Testalanı" 
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+            <a asp-controller="Home" asp-action="Testalanı"
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Bütün kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Beklemede"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Bekleyen kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Açık"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Açık kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
         </div>
         <div class="flex justify-between items-center p-4 border-b-2">
             <a asp-controller="Home" asp-action="Testalanı" asp-route-status="Kapalı"
-               class="text-lg p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
+               class="p-2 rounded-lg hover:bg-gray-200 hover:text-black transition-colors duration-300">
                 Kapalı kayıtlar
             </a>
             <span class="bg-gray-300 rounded-2xl p-2">@ViewBag.Tickets kayıt</span>
@@ -62,7 +66,21 @@
                 İnternet
             </a>
         </div>
-        
+
+        <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Blue</button>
+
+        <button type="button"
+                class="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2">
+            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                 viewBox="0 0 8 19">
+                <path fill-rule="evenodd"
+                      d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z"
+                      clip-rule="evenodd" />
+            </svg>
+            Sign in with Facebook
+        </button>
+
+
     </div>
     <div class="flex-1 bg-white p-4 overflow-y-auto">
         <h2 class="font-bold text-2xl mb-2 border-b-2">Kayıtlar</h2>
@@ -70,36 +88,141 @@
         <table class="min-w-full divide-y divide-gray-200 text-lg">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kullanıcı</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Başlık</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Açıklama</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durum</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Öncelik</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Atanan</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Oluşturulma</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kapanma</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Kullanıcı
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Başlık
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Açıklama
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Durum
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Öncelik
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Kategori
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Atanan
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Oluşturulma
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Kapanma
+                    </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        İşlem
+                    </th>
 
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach (var liste in Model)
-                { 
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap"><img src="~/lib/image/user.png" class="w-10 h-10"/></td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.title</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.description</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.status</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.priority</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.category</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.AssignedToUser?.Username</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.created_at</td>
-                    <td class="px-6 py-4 whitespace-nowrap">@liste.closed_at</td>
-                       
-                </tr>
+                {
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap"><img src="~/lib/image/user.png" class="w-10 h-10" /></td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.title</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.description</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.status</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.priority</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.category</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.AssignedToUser?.Username</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.created_at</td>
+                        <td class="px-6 py-4 whitespace-nowrap">@liste.closed_at</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-2xl transition-colors duration-200">
+                                Göz at<i class="fa-solid fa-magnifying-glass ml-2"></i>
+                            </button>
+                        </td>
+
+
+
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
 
+<!-- Modal -->
+<div id="crud-modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <label class="block text-gray-700 font-bold text-center text-xl">Bir destek kaydı oluştur</label>
+        <form method="post" asp-action="Create" asp-controller="Ticket" class="space-y-5">
+            <div>
+                <label class="block text-gray-700 font-medium ">Ticket Başlığı</label>
+                <input type="text" name="Title" id="Title"
+                       class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       required />
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium">Açıklama</label>
+                <input type="text" id="Description" name="Description"
+                       class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       required />
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium ">Öncelik</label>
+                <select name="Priority"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required>
+                    <option value="">Seçiniz</option>
+                    <option value="Düşük">Düşük</option>
+                    <option value="Orta">Orta</option>
+                    <option value="Yüksek">Yüksek</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label class="block text-gray-700 font-medium">Kategori</label>
+                <select id="Category" name="Category"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Donanım</option>
+                    <option>Yazılım</option>
+                    <option>İnternet</option>
+
+                </select>
+            </div>
+            <div>
+                @if (ViewBag.AssignedUsers != null)
+                {
+                    <label for="AssignedToUserId" class="block text-gray-700 font-medium">Atanacak Kullanıcı</label>
+                    <select id="AssignedToUserId" name="AssignedToUserId"
+                            class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                        <option value="">-- Seçiniz --</option>
+                        @foreach (var user in ViewBag.AssignedUsers)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <p>Kullanıcı listesi yüklenemedi.</p>
+                }
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                        class="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition duration-200 font-semibold">
+                    Ticket Oluştur
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<script src="~/lib/flowbite/flowbite.min.js"></script>

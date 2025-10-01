@@ -32,7 +32,7 @@
             <div>
                 <label class="block font-medium text-dark mt-2">Yetki</label>
                 <select asp-for="Users.RoleId"
-                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">Rol seçiniz</option>
                     @foreach (var role in ViewBag.Roles)
                     {
@@ -88,7 +88,7 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <a asp-action="UserTickets" asp-controller="Home" asp-route-id="@list.Id"
+                                    <a asp-action="UserTickets" asp-controller="Home" asp-route-id="@list.Id" asp-route-username="@list.Username"
                                        class="btn btn-info rounded-lg">
                                         Ticketları Görüntüle
                                     </a>

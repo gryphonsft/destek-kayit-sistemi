@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace destek_kayit_sistemi.Controllers;
 
+
 public class HomeController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -18,7 +19,8 @@ public class HomeController : Controller
         _context = context;
     }
 
-
+    [Route("admin")]
+    [HttpGet]
     [Authorize(Roles = "Admin")]
     public IActionResult AdminView()
     {
@@ -50,7 +52,8 @@ public class HomeController : Controller
     }
 
 
-
+    [Route("personel")]
+    [HttpGet]
     [Authorize(Roles = "Personel,Admin")]
     public IActionResult PersonelView()
     {
@@ -81,8 +84,9 @@ public class HomeController : Controller
 
         return View("PersonelView", tickets);
     }
-
-
+    //boş hali yapılacak
+    [Route("user")]
+    [HttpGet]
     [Authorize(Roles = "Kullanıcı")]
     public IActionResult UserView()
     {
@@ -117,6 +121,7 @@ public class HomeController : Controller
 
         return View("UserView", tickets);
     }
+    [Route("raporlama")]
     [HttpGet]
     public IActionResult ReportView()
     {
@@ -132,7 +137,7 @@ public class HomeController : Controller
         return View();
     }
 
-
+    [Route("ayarlar")]
     [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult SettingsView()
@@ -166,16 +171,30 @@ public class HomeController : Controller
 
         return View(model);
     }
-    [HttpGet]
+    
+    [Authorize(Roles = "Admin")]
+    [HttpGet("testalanı")]
     public IActionResult Testalanı(string category, string status)
     {
+        // Personel yetkisine sahip kullanıcıların, view'a gönderilmesi.
+        var assignedUsers = _context.Users
+          .Where(u => u.RoleId == 2)
+          .Select(u => new SelectListItem
+          {
+              Value = u.Id.ToString(),
+              Text = u.Username
+          })
+           .ToList();
+
         ViewBag.Tickets = _context.Tickets.Count();
         var tickets = _context.Tickets
         .Include(t => t.AssignedToUser)
         .OrderByDescending(t => t.created_at)
         .ToList();
 
-        
+        var role = HttpContext.Session.GetString("role");
+        var username = HttpContext.Session.GetString("username");
+
         if (!string.IsNullOrEmpty(category))
         {
 
@@ -209,6 +228,9 @@ public class HomeController : Controller
 
         }
 
+        ViewBag.AssignedUsers = assignedUsers; // Personel atama için viewbag
+        ViewBag.Role = role;
+        ViewBag.Username = username;
         return View(tickets);
     }
 
@@ -243,27 +265,28 @@ public class HomeController : Controller
     //roleCreate Action eklenecek
 
     [Authorize(Roles = "Admin")]
-    [HttpGet]
-    public IActionResult UserTickets(int Id)
+    [HttpGet("kayitlar/{id:int}/{username}")]
+    public IActionResult UserTickets(int id, string username)
     {
-        var id = HttpContext.Session.GetInt32("Id");
+        var sessionId = HttpContext.Session.GetInt32("Id");
         var rol = HttpContext.Session.GetString("role");
-        var username = HttpContext.Session.GetString("username");
+        var currentUsername = HttpContext.Session.GetString("username");
 
-        ViewBag.Id = id;
+        ViewBag.Id = sessionId;
         ViewBag.Role = rol;
-        ViewBag.Username = username;
+        ViewBag.Username = currentUsername;
 
         var user = _context.Users?
             .Include(u => u.CreatedTickets!)
             .ThenInclude(t => t.AssignedToUser)
-            .FirstOrDefault(u => u.Id == Id);
+            .FirstOrDefault(u => u.Id == id && u.Username == username);
 
         if (user == null)
             return NotFound();
 
         return View(user);
     }
+
 
     [Authorize(Roles = "Admin")]
     [HttpPost]
@@ -361,4 +384,3 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-
