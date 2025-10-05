@@ -172,19 +172,26 @@
 
 <!-- Cihaz Devret Modal -->
 <div id="cihazdevretmek" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
+    <div class="flex bg-white rounded-2xl p-6 w-full max-w-5xl shadow-xl relative items-stretch">
         <button onclick="closeModal('cihazdevretmek')"
-            class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">&times;</button>
-        <h2 class="text-xl font-semibold mb-4">Cihaz devretmek için seçim yapınız</h2>
+                class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl">
+            &times;
+        </button>
+
+        <div class="flex-1 min-w-0 mr-2">
         <form id="modalForm" asp-action="deviceTransfer" asp-controller="Inventory" method="post">
+            <h2 class="text-xl font-semibold mb-4">Cihaz devretmek için seçim yapınız</h2>
+
             @if (Model.Users != null && Model.Users.Any())
             {
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedUserid">Kime
-                        devredilsin?</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedUserid">
+                        Kime
+                        devredilsin?
+                    </label>
                     <select asp-for="SelectedUserid"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                        required>
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                            required>
                         <option value="">-- Kullanıcı Seç --</option>
                         @foreach (var user in Model.Users)
                         {
@@ -196,19 +203,31 @@
             @if (Model.Devices != null && Model.Devices.Any())
             {
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedDeviceid">Hangi cihaz
-                        devredilsin?</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="SelectedDeviceid">
+                        Hangi cihaz
+                        devredilsin?
+                    </label>
                     <select asp-for="SelectedDeviceid"
-                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                        required>
+                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                            required>
                         <option value="">-- Cihaz Seç --</option>
                         @foreach (var device in Model.Devices)
                         {
-                            <option value="@device.DeviceId">@($"{device.DeviceName} | {device.Brand} | {device.Model}")
+                            <option value="@device.DeviceId">
+                                @($"{device.DeviceName} | {device.Brand} | {device.Model}")
                             </option>
                         }
                     </select>
                 </div>
+            }
+            else
+            {
+                <div class="mb-4">
+                    <div class="alert alert-danger" role="alert">
+                        Cihazlar yüklenemedi
+                    </div>
+                </div>
+
             }
 
             @if (ViewBag.ErrorMessage != null)
@@ -218,13 +237,26 @@
 
             <div class="flex justify-end space-x-2">
                 <button type="button" onclick="closeModal('cihazdevretmek')"
-                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">İptal</button>
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                    İptal
+                </button>
                 <button type="submit"
-                    class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Devret</button>
+                        class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                    Devret
+                </button>
             </div>
         </form>
+        </div>
+
+        <div class="w-2/4 flex items-center justify-center pl-4 mr-4">
+            <img src="~/lib/image/cihazekleinfo.png" alt="Cihaz Ekle"
+                 class="max-w-full max-h-[250px] object-contain rounded-xl" />
+        </div>
+
     </div>
 </div>
+
+
 
 <!-- Devredilen Liste Modal -->
 <div id="devredilenListelemek" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50">

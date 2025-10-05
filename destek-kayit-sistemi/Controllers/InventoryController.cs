@@ -51,8 +51,6 @@ public class InventoryController : Controller
     [HttpPost]
     public async Task<IActionResult> deviceCreate(Devices devices)
     {
-        var role = HttpContext.Session.GetString("role");
-
         var devi = new Devices
         {
             DeviceName = devices.DeviceName,
@@ -66,15 +64,8 @@ public class InventoryController : Controller
         };
         _context.Devices.Add(devi);
         await _context.SaveChangesAsync();
-        TempData["Success"] = "Cihaz başarıyla eklendi!";
-
-        switch (role)
-        {
-            case "Admin":
-                return RedirectToAction("Index", "Inventory");
-            default:
-                return RedirectToAction("Login", "Auth");
-        }
+        //TempData["Success"] = "Cihaz başarıyla eklendi!"; (Envanter ekranına alert-modal eklenecek)
+        return RedirectToAction("Index");
     }
     [HttpPost("transfer")]
     public IActionResult deviceTransfer(DevicePageViewModel model)
@@ -95,7 +86,7 @@ public class InventoryController : Controller
                 SelectedUserid = model.SelectedUserid
             };
 
-            ViewBag.OpenModal = "cihazdevretmek"; 
+            ViewBag.OpenModal = "cihazdevretmek";
 
             return View("Index", fullModel);
         }
